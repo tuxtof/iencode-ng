@@ -22,21 +22,41 @@ If you wish to install the latest (non-stable) development version from source, 
 
 ## Basic usage
 
-Usage: iencode [options] <path to moviefile>
-iencode -h for full list of options
+From the command line, simply run:
 
-Options:
-  -h, --help            						show this help message and exit
-  -d, --debug           						Shows all debugging info
-  -v, --verbose         						Will provide some feedback [default]
-  -q, --quiet           						For ninja-like processing
-  -f, --force           						Overwrite existing target movie file
-  -t, --tvtags          						Tag file.mp4 after conversion with tvtags
-  -m, --movietags       						Tag file.mp4 after conversion with movietags
-  -n, --renaming       							Enable cleaning name for tvtags & movietags
-  -s <subtitle file>, --sub=<subtitle file>		Use this subtitle file instead of video file.srt
-  -T, --test            						Test mode, only encode 30 first seconds
-  --version             						Show  version information for iencode
+	iencode the.file.mkv
+	
+For example:
+
+	$ iencode Chuck.3x03.mkv
+	Encoding file Chuck.3x03.mkv
+	Encoding: task 1 of 1, 0.58 %
+	Muxing: this may take awhile...
+	Processing is done
+
+## Command line arguments
+
+There are various flags you can use with `iencode`, run..
+
+    iencode --help
+
+..to see them, and a short description of each.
+
+
+
+`-h, --help` show help message and exit
+`-d, --debug` show all debugging info
+`-v, --verbose` will provide some feedback [default]`
+`-q, --quiet` for ninja-like processing
+`-f, --force` overwrite existing target movie file
+`-t, --tvtags` tag file.mp4 after conversion with `tvtags` (required) [tvtags]
+`-m, --movietags` tag file.mp4 after conversion with `movietags` (required) [movietags]
+`-n, --renaming` enable cleaning name for tvtags & movietags
+`-s <subtitle file>, --sub=<subtitle file>`	use this subtitle file instead of video file.srt
+`-T, --test` test mode, only encode 30 first seconds
+`--version` show  version information for iencode
 
 
 [handbrakecli]: http://handbrake.fr/downloads.php
+[tvtags]: http://github.com/tuxtof/tvtags
+[movietags]: http://github.com/tuxtof/movietags
