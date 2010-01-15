@@ -10,6 +10,12 @@ task :clean do
   `rm *.pyc`
 end
 
+desc "Install modules"
+task :install do
+  puts "Installing"
+  `python setup.py install`
+end
+
 desc "Upversion files"
 task :upversion do
   puts "Upversioning"
@@ -45,15 +51,15 @@ end
 desc "Upload current version to PyPi"
 task :topypi do
   cur_file = File.open("iencode.py").read()
-  tvdb_api_version = cur_file.scan(/__version__ = "(.*)"/)
-  tvdb_api_version = tvdb_api_version[0][0].to_f
+  release_version = cur_file.scan(/__version__ = "(.*)"/)
+  release_version = release_version[0][0].to_f
 
-  puts "Build sdist and send project v#{tvdb_api_version} to PyPi?"
+  puts "Build sdist and send project v#{release_version} to PyPi?"
   if $stdin.gets.chomp == "y"
     puts "Sending source-dist (sdist) to PyPi"
 
     if system("python setup.py sdist register upload")
-      print "tvdb_api uploaded!"
+      print "release uploaded!"
     end
 
   else
