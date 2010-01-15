@@ -45,15 +45,25 @@ There are various flags you can use with `iencode`, run..
 
 
 `-h, --help` show help message and exit
+
 `-d, --debug` show all debugging info
-`-v, --verbose` will provide some feedback [default]`
+
+`-v, --verbose` will provide some feedback [default]
+
 `-q, --quiet` for ninja-like processing
+
 `-f, --force` overwrite existing target movie file
-`-t, --tvtags` tag file.mp4 after conversion with `tvtags` (required) [tvtags]
-`-m, --movietags` tag file.mp4 after conversion with `movietags` (required) [movietags]
+
+`-t, --tvtags` tag file.mp4 after conversion with `tvtags` [(required)][tvtags]
+
+`-m, --movietags` tag file.mp4 after conversion with `movietags` [(required)][movietags]
+
 `-n, --renaming` enable cleaning name for tvtags & movietags
+
 `-s <subtitle file>, --sub=<subtitle file>`	use this subtitle file instead of video file.srt
+	
 `-T, --test` test mode, only encode 30 first seconds
+
 `--version` show  version information for iencode
 
 
