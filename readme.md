@@ -26,18 +26,17 @@ Usage: iencode [options] <path to moviefile>
 iencode -h for full list of options
 
 Options:
-  -h, --help            show this help message and exit
-  -d, --debug           Shows all debugging info
-  -v, --verbose         Will provide some feedback [default]
-  -q, --quiet           For ninja-like processing
-  -f, --force           Overwrite existing target movie file
-  -t, --tvtags          Tag file.mp4 after conversion with tvtags
-  -m, --movietags       Tag file.mp4 after conversion with movietags
-  -n, --renaming       Enable cleaning name for tvtags & movietags
-  -s <subtitle file>, --sub=<subtitle file>
-                        Use this subtitle file instead of video file.srt
-  -T, --test            Test mode, only encode 30 first seconds
-  --version             Show  version information for iencode
+  -h, --help            						show this help message and exit
+  -d, --debug           						Shows all debugging info
+  -v, --verbose         						Will provide some feedback [default]
+  -q, --quiet           						For ninja-like processing
+  -f, --force           						Overwrite existing target movie file
+  -t, --tvtags          						Tag file.mp4 after conversion with tvtags
+  -m, --movietags       						Tag file.mp4 after conversion with movietags
+  -n, --renaming       							Enable cleaning name for tvtags & movietags
+  -s <subtitle file>, --sub=<subtitle file>		Use this subtitle file instead of video file.srt
+  -T, --test            						Test mode, only encode 30 first seconds
+  --version             						Show  version information for iencode
 
 
 [handbrakecli]: http://handbrake.fr/downloads.php
