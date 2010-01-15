@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+__version__ = "0.6"
+
 from setuptools import setup
 setup(
 name = 'iencode-ng',
-version='0.5.1',
+version= __version__,
 author='tuxtof',
 author_email='dev@geo6.net',
 description='iPhone video encoding tools.',
