@@ -1,7 +1,13 @@
 #!/usr/bin/env python
 #encoding:utf-8
 #author:tuxtof
-#project:iencode
+#project:iencode-ng
+#repository:http://github.com/tuxtof/iencode-ng
+#license:Creative Commons GNU GPL v2
+# (http://creativecommons.org/licenses/GPL/2.0/)
+
+__author__ = "tuxtof"
+__version__ = "0.5.1"
 
 import os
 import sys
@@ -80,9 +86,14 @@ def main():
 	parser.add_option(  "-n", "--renaming", action="store_true", dest="rename", help="Enable cleaning name for tvtags & movietags")
 	parser.add_option(  "-s", "--sub", action="store", type="string", dest="subfile", metavar="<subtitle file>", help="Use this subtitle file instead of video file.srt")
 	parser.add_option(  "-T", "--test", action="store_true", dest="test", help="Test mode, only encode 30 first seconds")
-	parser.set_defaults( removetags=False, interactive=False, verbose=1, tvtags=False, movietags=False, subfile="", test=False, force=False, rename=False )
+	parser.add_option(	"--version", action="store_true", dest="version", help="Show  version information for iencode")
+	parser.set_defaults( removetags=False, interactive=False, verbose=1, tvtags=False, movietags=False, subfile="", test=False, force=False, rename=False, version=False )
     
 	opts, args = parser.parse_args()
+	
+	if opts.version:
+		print "iencode %s" % __version__
+		sys.exit(0)
 	
 	if len(args) == 0:
 		parser.error("You must provide at least one file to encode")

@@ -3,8 +3,9 @@
 from setuptools import setup
 setup(
 name = 'iencode-ng',
-version='0.5',
+version='0.5.1',
 author='tuxtof',
+author_email='dev@geo6.net',
 description='iPhone video encoding tools.',
 url='http://github.com/tuxtof/iencode-ng',
 license='GPLv2',
