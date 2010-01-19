@@ -36,9 +36,7 @@ def processFile(opts, fullFileName):
 		addTest = ""
 		print "Encoding file %s" % fullFileName
 	
-	if opts.subfile:
-		addSub = " --srt-default --srt-lang fra --srt-file \"%s\"" % opts.subfile
-	elif os.path.isfile(path + name + ".srt"):
+	if os.path.isfile(path + name + ".srt"):
 		addSub = " --srt-default --srt-lang fra --srt-file \"%s\"" % (path + name + ".srt")
 	else:
 		addSub = ""
@@ -63,13 +61,11 @@ def processFile(opts, fullFileName):
 
 def exectvtags(opts,file):
 	print "Processing tvtags"
-	import tvtags
 	tvtags.tvtags(opts,file)
 	
 
 def execmovietags(opts,file):
 	print "Processing movietags"
-	import movietags
 	movietags.movietags(opts,file)
 
 
@@ -81,14 +77,23 @@ def main():
 	parser.add_option(  "-v", "--verbose", action="store_const", const=1, dest="verbose", help="Will provide some feedback [default]")
 	parser.add_option(  "-q", "--quiet", action="store_const", const=0, dest="verbose", help="For ninja-like processing")
 	parser.add_option(  "-f", "--force", action="store_true", dest="force", help="Overwrite existing target movie file")
-	parser.add_option(  "-t", "--tvtags", action="store_true", dest="tvtags", help="Tag file.mp4 after conversion with tvtags")
-	parser.add_option(  "-m", "--movietags", action="store_true", dest="movietags", help="Tag file.mp4 after conversion with movietags")
+	try:
+		import tvtags
+	except:
+		__tvtags__ = False
+	else:
+		parser.add_option(  "-t", "--tvtags", action="store_true", dest="tvtags", help="Tag file.mp4 after conversion with tvtags")
+	try:
+		import movietags
+	except:
+		__movietags__ = False
+	else:
+		parser.add_option(  "-m", "--movietags", action="store_true", dest="movietags", help="Tag file.mp4 after conversion with movietags")
 	parser.add_option(  "-n", "--renaming", action="store_true", dest="rename", help="Enable cleaning name for tvtags & movietags")
-	parser.add_option(  "-s", "--sub", action="store", type="string", dest="subfile", metavar="<subtitle file>", help="Use this subtitle file instead of video file.srt")
 	parser.add_option(  "-T", "--test", action="store_true", dest="test", help="Test mode, only encode 30 first seconds")
 	parser.add_option(	"--version", action="store_true", dest="version", help="Show  version information for iencode")
-	parser.set_defaults( removetags=False, interactive=False, verbose=1, tvtags=False, movietags=False, subfile="", test=False, force=False, rename=False, version=False )
-    
+	parser.set_defaults( removetags=False, interactive=False, verbose=1, tvtags=False, movietags=False, test=False, force=False, rename=False, version=False )
+
 	opts, args = parser.parse_args()
 	
 	if opts.version:
@@ -101,10 +106,7 @@ def main():
 #	if not os.path.exists("HandBrakeCLI"):
 #		print "HandBrakeCLI tools not found\nPlease go to http://handbrake.fr/downloads.php to install it"
 #		sys.exit(2)
-		
-	if opts.subfile and not os.path.isfile(opts.subfile):
-		print "No such subtitle file : %s" %opts.subfile
-		sys.exit(1)
+	
 		
 	for file in args:
 		if not os.path.isfile(file):
