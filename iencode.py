@@ -15,6 +15,11 @@ from subprocess import *
 import glob
 from optparse import OptionParser
 
+def whichBin(execName):
+	for path in os.environ["PATH"].split(":"):
+		if os.path.exists(os.path.join(path,execName)):
+			return 1
+
 def processFile(opts, fullFileName):
 	
 	
@@ -103,11 +108,10 @@ def main():
 	if len(args) == 0:
 		parser.error("You must provide at least one file to encode")
 		
-#	if not os.path.exists("HandBrakeCLI"):
-#		print "HandBrakeCLI tools not found\nPlease go to http://handbrake.fr/downloads.php to install it"
-#		sys.exit(2)
+	if not whichBin("HandbrakeCLI"):
+		print "HandBrakeCLI tools not found\nPlease go to http://handbrake.fr/downloads.php to install it"
+		sys.exit(0)
 	
-		
 	for file in args:
 		if not os.path.isfile(file):
 			print "No such movie file : %s" %file
