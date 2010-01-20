@@ -59,8 +59,6 @@ There are various flags you can use with `iencode`, run..
 `-m, --movietags` tag file.mp4 after conversion with `movietags` [(required)][movietags]
 
 `-n, --renaming` enable cleaning name for tvtags & movietags
-
-`-s <subtitle file>, --sub=<subtitle file>`	use this subtitle file instead of video file.srt
 	
 `-T, --test` test mode, only encode 30 first seconds
 
