@@ -11,6 +11,7 @@ __version__ = "0.6"
 
 import os
 import sys
+import shutil
 from subprocess import *
 import glob
 from optparse import OptionParser
@@ -19,6 +20,7 @@ def whichBin(execName):
 	for path in os.environ["PATH"].split(":"):
 		if os.path.exists(os.path.join(path,execName)):
 			return 1
+
 
 def processFile(opts, fullFileName):
 	
@@ -62,6 +64,9 @@ def processFile(opts, fullFileName):
 	if opts.movietags:
 		execmovietags(opts,outputFileName)
 	
+	if opts.itunes:
+	    moveToiTunes(opts,outputFileName)
+	
 	print "Processing is done"
 
 def exectvtags(opts,file):
@@ -73,7 +78,16 @@ def execmovietags(opts,file):
 	print "Processing movietags"
 	movietags.movietags(opts,file)
 
-
+def moveToiTunes(opts, outputFileName):
+    if opts.verbose > 0:
+        print "add %s to iTunes" % outputFileName
+    itunesfolder = glob.glob('%s/Music/iTunes/iTunes*/*uto*iTunes*' % os.environ['HOME'])
+    if itunesfolder:
+        shutil.move(outputFileName,itunesfolder[0])
+    else:
+        if opts.verbose > 0:
+            print "no auto iTunes folder"
+        
 	
 def main():
 	parser = OptionParser(usage="%prog [options] <path to moviefile>\n%prog -h for full list of options")
@@ -95,6 +109,7 @@ def main():
 	else:
 		parser.add_option(  "-m", "--movietags", action="store_true", dest="movietags", help="Tag file.mp4 after conversion with movietags")
 	parser.add_option(  "-n", "--renaming", action="store_true", dest="rename", help="Enable cleaning name for tvtags & movietags")
+	parser.add_option(  "-i", "--itunes", action="store_true", dest="itunes", help="Automatically add to iTunes")
 	parser.add_option(  "-T", "--test", action="store_true", dest="test", help="Test mode, only encode 30 first seconds")
 	parser.add_option(	"--version", action="store_true", dest="version", help="Show  version information for iencode")
 	parser.set_defaults( removetags=False, interactive=False, verbose=1, tvtags=False, movietags=False, test=False, force=False, rename=False, version=False )
