@@ -59,6 +59,8 @@ There are various flags you can use with `iencode`, run..
 `-m, --movietags` tag file.mp4 after conversion with `movietags` [(required)][movietags]
 
 `-n, --renaming` enable cleaning name for tvtags & movietags
+
+`-i, --itunes` Automatically add to iTunes
 	
 `-T, --test` test mode, only encode 30 first seconds
 
