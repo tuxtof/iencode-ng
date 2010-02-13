@@ -15,6 +15,19 @@ import shutil
 from subprocess import *
 import glob
 from optparse import OptionParser
+try:
+	import tvtags
+except:
+	__tvtags__ = False
+else:
+    __tvtags__ = True
+try:
+    import movietags
+except:
+	__movietags__ = False
+else:
+    __movietags__ = True
+
 
 def whichBin(execName):
 	for path in os.environ["PATH"].split(":"):
@@ -96,18 +109,10 @@ def main():
 	parser.add_option(  "-v", "--verbose", action="store_const", const=1, dest="verbose", help="Will provide some feedback [default]")
 	parser.add_option(  "-q", "--quiet", action="store_const", const=0, dest="verbose", help="For ninja-like processing")
 	parser.add_option(  "-f", "--force", action="store_true", dest="force", help="Overwrite existing target movie file")
-	try:
-		import tvtags
-	except:
-		__tvtags__ = False
-	else:
+	if __tvtags__:
 		parser.add_option(  "-t", "--tvtags", action="store_true", dest="tvtags", help="Tag file.mp4 after conversion with tvtags")
-	try:
-		import movietags
-	except:
-		__movietags__ = False
-	else:
-		parser.add_option(  "-m", "--movietags", action="store_true", dest="movietags", help="Tag file.mp4 after conversion with movietags")
+	if __movietags__:
+	    parser.add_option(  "-m", "--movietags", action="store_true", dest="movietags", help="Tag file.mp4 after conversion with movietags")
 	parser.add_option(  "-n", "--renaming", action="store_true", dest="rename", help="Enable cleaning name for tvtags & movietags")
 	parser.add_option(  "-i", "--itunes", action="store_true", dest="itunes", help="Automatically add to iTunes")
 	parser.add_option(  "-T", "--test", action="store_true", dest="test", help="Test mode, only encode 30 first seconds")
