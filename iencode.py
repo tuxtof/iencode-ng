@@ -7,7 +7,7 @@
 # (http://creativecommons.org/licenses/GPL/2.0/)
 
 __author__ = "tuxtof"
-__version__ = "0.6"
+__version__ = "0.7"
 
 import os
 import sys
