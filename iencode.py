@@ -56,7 +56,7 @@ def processFile(opts, fullFileName):
 		addTest = ""
 		print "Encoding file %s" % fullFileName
 	
-	if os.path.isfile(path + name + ".srt"):
+	if os.path.isfile(os.path.join(path , name + ".srt")):
 		addSub = " --srt-default --srt-lang fra --srt-file \"%s\"" % (path + name + ".srt")
 	else:
 		addSub = ""
