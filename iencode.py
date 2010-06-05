@@ -7,7 +7,7 @@
 # (http://creativecommons.org/licenses/GPL/2.0/)
 
 __author__ = "tuxtof"
-__version__ = "0.7"
+__version__ = "0.8"
 
 import os
 import sys
@@ -50,8 +50,8 @@ def processFile(opts, fullFileName):
 		sys.exit(1)
 		
 	if opts.test:
-		addTest = " --stop-at duration:30"
-		print "Encoding 30s of file %s" % fullFileName
+		addTest = " --stop-at duration:60"
+		print "Encoding 60s of file %s" % fullFileName
 	else:
 		addTest = ""
 		print "Encoding file %s" % fullFileName
@@ -61,8 +61,12 @@ def processFile(opts, fullFileName):
 	else:
 		addSub = ""
 		
+	if opts.preset:
+		thePreset = "AppleTV"
+	else:
+		thePreset = "iPhone & iPod Touch"
 	
-	encodeCmd = "HandBrakeCLI -Z \"iPhone & iPod Touch\" -i \"%s\" -o \"%s\" --mixdown stereo %s %s" % (fullFileName, outputFileName, addTest, addSub)
+	encodeCmd = "HandBrakeCLI -X 1024 -Z \"%s\" -i \"%s\" -o \"%s\" --mixdown stereo %s %s" % (thePreset, fullFileName, outputFileName, addTest, addSub)
 	
 	if opts.verbose > 1:
 		print encodeCmd
@@ -103,7 +107,7 @@ def moveToiTunes(opts, outputFileName):
         
 	
 def main():
-	parser = OptionParser(usage="%prog [options] <path to moviefile>\n%prog -h for full list of options")
+	parser = OptionParser(usage="%prog [options] <path to moviefile(s)>\n%prog -h for full list of options")
 	    
 	parser.add_option(  "-d", "--debug", action="store_const", const=2, dest="verbose", help="Shows all debugging info")
 	parser.add_option(  "-v", "--verbose", action="store_const", const=1, dest="verbose", help="Will provide some feedback [default]")
@@ -115,9 +119,10 @@ def main():
 	    parser.add_option(  "-m", "--movietags", action="store_true", dest="movietags", help="Tag file.mp4 after conversion with movietags")
 	parser.add_option(  "-n", "--renaming", action="store_true", dest="rename", help="Enable cleaning name for tvtags & movietags")
 	parser.add_option(  "-i", "--itunes", action="store_true", dest="itunes", help="Automatically add to iTunes")
-	parser.add_option(  "-T", "--test", action="store_true", dest="test", help="Test mode, only encode 30 first seconds")
+	parser.add_option(  "-T", "--test", action="store_true", dest="test", help="Test mode, only encode 60 first seconds")
+	parser.add_option(	"-p", "--pad", action="store_const", dest="preset", const=1, help="Choose iPad preset")
 	parser.add_option(	"--version", action="store_true", dest="version", help="Show  version information for iencode")
-	parser.set_defaults( removetags=False, interactive=False, verbose=1, tvtags=False, movietags=False, test=False, force=False, rename=False, version=False )
+	parser.set_defaults( removetags=False, interactive=False, verbose=1, preset=0, tvtags=False, movietags=False, test=False, force=False, rename=False, version=False )
 
 	opts, args = parser.parse_args()
 	
@@ -128,7 +133,7 @@ def main():
 	if len(args) == 0:
 		parser.error("You must provide at least one file to encode")
 		
-	if not whichBin("HandbrakeCLI"):
+	if not whichBin("HandBrakeCLI"):
 		print "HandBrakeCLI tools not found\nPlease go to http://handbrake.fr/downloads.php to install it"
 		sys.exit(0)
 	
@@ -137,8 +142,7 @@ def main():
 			print "No such movie file : %s" %file
 			sys.exit(1)
 		processFile(opts, file)
-		
-		
+				
 
 if __name__ == "__main__": 
 	sys.exit(main())
