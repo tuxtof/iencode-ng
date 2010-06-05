@@ -66,7 +66,7 @@ def processFile(opts, fullFileName):
 	else:
 		thePreset = "iPhone & iPod Touch"
 	
-	encodeCmd = "HandBrakeCLI -X 1024 -Z \"%s\" -i \"%s\" -o \"%s\" --mixdown stereo %s %s" % (thePreset, fullFileName, outputFileName, addTest, addSub)
+	encodeCmd = "HandBrakeCLI -Z \"%s\" -i \"%s\" -o \"%s\" --mixdown stereo %s %s" % (thePreset, fullFileName, outputFileName, addTest, addSub)
 	
 	if opts.verbose > 1:
 		print encodeCmd
